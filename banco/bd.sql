@@ -1,6 +1,7 @@
-create database DockerLinux
+DROP DATABASE IF EXISTS DockerLinux;
+CREATE DATABASE DockerLinux;
 
-use DockerLinux
+USE DockerLinux;
 
 create table Tarefas(
     id int primary key auto_increment,
