@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import api from '../api'
 import './App.css'
 
 function App() {
+  const navigate = useNavigate()
   const [tarefas, setTarefas] = useState([])
+  const [busca, setBusca] = useState('')
   const [modalAberto, setModalAberto] = useState(false)
   const [tarefaEditando, setTarefaEditando] = useState(null)
   const [form, setForm] = useState({ titulo: '', descricao: '', status: 'Pendente' })
@@ -44,28 +47,49 @@ function App() {
     setModalAberto(true)
   }
 
+  function deslogar() {
+    localStorage.removeItem('idUsuario')
+    navigate('/login')
+  }
+
   useEffect(() => {
-    getTarefas()
-  }, [])
+    if (!idUsuario) {
+      navigate('/login')
+    } else {
+      getTarefas()
+    }
+  }, [idUsuario, navigate])
+
+  const tarefasFiltradas = tarefas.filter(tarefa => 
+    tarefa.titulo.toLowerCase().includes(busca.toLowerCase()) || 
+    tarefa.descricao.toLowerCase().includes(busca.toLowerCase())
+  )
 
   return (
     <div className="container">
       <header className="header">
         <h1 className="titulo">MyTasks</h1>
         <div className="header-acoes">
+          <input 
+            type="text" 
+            placeholder="🔍 Pesquisar tarefa..." 
+            className="input-pesquisa"
+            value={busca}
+            onChange={(e) => setBusca(e.target.value)}
+          />
           <button className="btn-adicionar" onClick={abrirNovo}>+ Nova Tarefa</button>
-          <button className="btn-pesquisar">🔍</button>
+          <button className="btn-sair" onClick={deslogar}>Sair</button>
         </div>
       </header>
 
       <div className="lista">
-        {tarefas.map(tarefa => (
+        {tarefasFiltradas.map(tarefa => (
           <div key={tarefa.id} className="card">
             <div className="card-conteudo">
               <p className="card-titulo">{tarefa.titulo}</p>
               <p className="card-descricao">{tarefa.descricao}</p>
-              <span className={tarefa.status ? 'badge-concluida' : 'badge-pendente'}>
-                {tarefa.status ? 'Concluída' : 'Pendente'}
+              <span className={tarefa.status === 'Concluída' ? 'badge-concluida' : 'badge-pendente'}>
+                {tarefa.status}
               </span>
             </div>
             <div className="card-acoes">
