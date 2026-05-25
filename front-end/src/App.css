@@ -1,0 +1,143 @@
+/* App.css */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.header-acoes {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-adicionar {
+  background-color: #1a1a1a;
+  color: #F1EFE8;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-adicionar:hover {
+  background-color: #444441;
+}
+
+.btn-pesquisar {
+  background: none;
+  border: 0.5px solid #D3D1C7;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-pesquisar:hover {
+  background-color: #E8E6DF;
+}
+
+.container {
+  min-height: 100vh;
+  background-color: #F1EFE8;
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+.titulo {
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 0.5px solid #D3D1C7;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.card-conteudo {
+  flex: 1;
+}
+
+.card-titulo {
+  margin: 0;
+  font-weight: 600;
+  font-size: 15px;
+  color: #1a1a1a;
+}
+
+.card-descricao {
+  margin: 4px 0 8px;
+  font-size: 13px;
+  color: #5F5E5A;
+}
+
+.badge-concluida {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background-color: #E1F5EE;
+  color: #0F6E56;
+  border: 0.5px solid #1D9E75;
+}
+
+.badge-pendente {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background-color: #FEF3E2;
+  color: #92500A;
+  border: 0.5px solid #D97706;
+}
+
+.card-acoes {
+  display: flex;
+  gap: 8px;
+  margin-left: 1rem;
+}
+
+.btn-editar {
+  background: none;
+  border: 0.5px solid #D3D1C7;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: #5F5E5A;
+  font-size: 16px;
+  transition: background 0.15s;
+}
+
+.btn-editar:hover {
+  background-color: #F1EFE8;
+}
+
+.btn-deletar {
+  background: none;
+  border: 0.5px solid #FF2D2D;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: #FF2D2D;
+  font-size: 16px;
+  transition: background 0.15s;
+}
+
+.btn-deletar:hover {
+  background-color: #FFECEC;
+}
