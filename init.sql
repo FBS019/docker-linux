@@ -8,7 +8,7 @@ create table Usuarios(
     nome varchar(100) not null,
     email varchar(100) not null unique,
     senha varchar(255) not null
-)
+);
 
 create table Tarefas(
     id int primary key auto_increment,
@@ -19,5 +19,5 @@ create table Tarefas(
     data_criacao datetime default current_timestamp,
     data_atualizado datetime default current_timestamp on update current_timestamp,
     foreign key (idUsuario) references Usuarios(id)
-)
+);
 
