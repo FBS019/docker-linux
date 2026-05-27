@@ -5,10 +5,11 @@ cont = 0
 while cont < 5:
     try:    
         db = mysql.connector.connect(
-            host="db-mysql",
+            host="database-mysql",
             user="root",
-            password="",
-            database="DockerLinux"
+            password="root",
+            database="DockerLinux",
+            port="3306"
         )
         print("conexão bem sucedida")
         break

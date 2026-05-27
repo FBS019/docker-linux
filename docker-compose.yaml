@@ -1,0 +1,38 @@
+services:
+  back-end:
+    build:
+      ./back-end
+    depends_on:
+      - database-mysql
+    ports:
+      - "8000:8000"   
+    networks:
+      - public_networks
+      - private_networks
+  
+  front-end:
+    build:
+      ./front-end
+    depends_on:
+      - back-end
+    ports:
+      - "5173:5173"
+    networks:
+      - public_networks
+  
+  database-mysql:
+    image: mysql:8.0
+    enviroments:
+      - MYSQL_ROOT_PASSWORD: root
+      - MYSQL_DATABASE: DockerLinux
+
+    volumes:
+      - ./init.sql:docker-entrypoint-initdb.d/init.sql
+      - mysql_data:var/lib/mysql
+      
+    networks:
+      - private_networks
+
+  networks:
+    public_networks:
+    private_networks:
