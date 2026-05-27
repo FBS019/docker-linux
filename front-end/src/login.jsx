@@ -9,12 +9,18 @@ function Login() {
     const [senha, setSenha] = useState('')
 
     async function enviar() {
-        const response = await api.get('/login', {
-            params: { email, senha }
-        })
-        if (response.data) {
-            localStorage.setItem('idUsuario', response.data)
-            navigate('/')
+        try {
+            const response = await api.get('/login', {
+                params: { email, senha }
+            });
+            // Pega o id dentro de response.data
+            if (response.data && response.data.id) {
+                localStorage.setItem('idUsuario', response.data.id);
+                localStorage.setItem('nome', response.data.nome);
+                navigate('/');
+            }
+        } catch (error) {
+            alert("Email ou senha incorretos.");
         }
     }
 

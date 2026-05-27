@@ -14,7 +14,7 @@ create table Tarefas(
     id int primary key auto_increment,
     titulo varchar(100) not null,
     descricao varchar(255) not null,
-    status boolean not null,
+    status varchar(50) not null,
     idUsuario int not null,
     data_criacao datetime default current_timestamp,
     data_atualizado datetime default current_timestamp on update current_timestamp,

@@ -2,7 +2,9 @@ import mysql.connector
 import time
 cont = 0
 
-while cont < 5:
+bd = None 
+
+while cont < 10:
     try:    
         bd = mysql.connector.connect(
             host="database-mysql",
@@ -17,8 +19,8 @@ while cont < 5:
         cont+=1
         print("Erro de conexão")
         print(f"Tentativa: {cont}/5")
-        time.sleep(2)
+        time.sleep(3)
 
-if cont == 5:
+if cont == 10 or bd is None:
     print("Erro não foi possível conectar ao banco")
 

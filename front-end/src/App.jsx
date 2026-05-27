@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import api from '../api'
+import api from './api'
 import './App.css'
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
   const [form, setForm] = useState({ titulo: '', descricao: '', status: 'Pendente' })
 
   const idUsuario = localStorage.getItem('idUsuario')
+  const nome = localStorage.getItem('nome')
 
   async function getTarefas() {
     const response = await api.get('/tarefas', {
@@ -21,18 +22,36 @@ function App() {
   }
 
   async function deletar(idTarefa) {
-    await api.delete(`/tarefas/deletar/${idTarefa}`)
+    await api.delete(`/tarefas/${idTarefa}`)
     getTarefas()
   }
 
   async function salvar() {
-    if (tarefaEditando) {
-      await api.put(`/tarefas/atualizar/${tarefaEditando.id}`, form)
-    } else {
-      await api.post('/tarefas/criar', { ...form, idUsuario })
+    try {
+      if (tarefaEditando) {
+        await api.put(`/tarefas/${tarefaEditando.id}`, null, {
+          params: {
+            titulo: form.titulo,
+            descricao: form.descricao,
+            status: form.status
+          }
+        })
+      } else {
+        await api.post('/tarefas', null, {
+          params: {
+            titulo: form.titulo,
+            descricao: form.descricao,
+            idUsuario: parseInt(idUsuario) // O FastAPI exige que seja número!
+          }
+        })
+      }
+      setModalAberto(false)
+      setForm({ titulo: '', descricao: '', status: 'Pendente' })
+      getTarefas()
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao salvar! Veja o console do navegador (F12) para detalhes.");
     }
-    setModalAberto(false)
-    getTarefas()
   }
 
   function abrirEditar(tarefa) {
@@ -60,19 +79,19 @@ function App() {
     }
   }, [idUsuario, navigate])
 
-  const tarefasFiltradas = tarefas.filter(tarefa => 
-    tarefa.titulo.toLowerCase().includes(busca.toLowerCase()) || 
+  const tarefasFiltradas = tarefas.filter(tarefa =>
+    tarefa.titulo.toLowerCase().includes(busca.toLowerCase()) ||
     tarefa.descricao.toLowerCase().includes(busca.toLowerCase())
   )
 
   return (
     <div className="container">
       <header className="header">
-        <h1 className="titulo">MyTasks</h1>
+        <h1 className="titulo">MyTasks - Bem vindo {nome}</h1>
         <div className="header-acoes">
-          <input 
-            type="text" 
-            placeholder="🔍 Pesquisar tarefa..." 
+          <input
+            type="text"
+            placeholder="🔍 Pesquisar tarefa..."
             className="input-pesquisa"
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
