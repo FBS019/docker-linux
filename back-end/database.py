@@ -4,7 +4,7 @@ cont = 0
 
 while cont < 5:
     try:    
-        db = mysql.connector.connect(
+        bd = mysql.connector.connect(
             host="database-mysql",
             user="root",
             password="root",
