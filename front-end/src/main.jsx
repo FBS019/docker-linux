@@ -3,8 +3,8 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
-import Login from './Login.jsx'
-import Cadastro from './Cadastro.jsx'
+import Login from './login.jsx'
+import Cadastro from './cadastro.jsx'
 
 
 createRoot(document.getElementById('root')).render(
